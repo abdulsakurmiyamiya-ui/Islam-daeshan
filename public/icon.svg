@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="100" fill="#021810"/>
+  <circle cx="256" cy="256" r="210" fill="#04271b" stroke="#d97706" stroke-width="8"/>
+  <circle cx="256" cy="256" r="195" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,6"/>
+  <!-- Crescent Moon and Star -->
+  <path d="M 290 140 A 130 130 0 1 0 340 340 A 105 105 0 1 1 290 140 Z" fill="#f59e0b"/>
+  <polygon points="325,185 333,205 355,205 337,218 344,238 325,225 306,238 313,218 295,205 317,205" fill="#fbbf24"/>
+  <!-- Open Book Base -->
+  <path d="M 160 330 Q 256 310 256 350 Q 256 310 352 330 L 340 375 Q 256 355 256 385 Q 256 355 172 375 Z" fill="#fef3c7" opacity="0.95"/>
+  <path d="M 256 350 L 256 385" stroke="#78350f" stroke-width="3"/>
+</svg>

@@ -1,0 +1,34 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.14"
+        android:scaleY="0.14"
+        android:translateX="18.16"
+        android:translateY="18.16">
+        <!-- Circle outline -->
+        <path
+            android:fillColor="#04271b"
+            android:strokeColor="#d97706"
+            android:strokeWidth="8"
+            android:pathData="M256,46 A210,210 0 1,0 256,466 A210,210 0 1,0 256,46 Z" />
+        <!-- Crescent Moon -->
+        <path
+            android:fillColor="#f59e0b"
+            android:pathData="M 290 140 A 130 130 0 1 0 340 340 A 105 105 0 1 1 290 140 Z" />
+        <!-- Star -->
+        <path
+            android:fillColor="#fbbf24"
+            android:pathData="M325,185 L333,205 L355,205 L337,218 L344,238 L325,225 L306,238 L313,218 L295,205 L317,205 Z" />
+        <!-- Open Book Base -->
+        <path
+            android:fillColor="#fef3c7"
+            android:pathData="M 160 330 Q 256 310 256 350 Q 256 310 352 330 L 340 375 Q 256 355 256 385 Q 256 355 172 375 Z" />
+        <path
+            android:strokeColor="#78350f"
+            android:strokeWidth="3"
+            android:pathData="M 256 350 L 256 385" />
+    </group>
+</vector>

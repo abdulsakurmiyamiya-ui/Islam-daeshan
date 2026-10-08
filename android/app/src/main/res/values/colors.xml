@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_dark_emerald">#021810</color>
+    <color name="primary_deep_emerald">#042017</color>
+    <color name="accent_gold">#d97706</color>
+    <color name="accent_amber">#f59e0b</color>
+    <color name="background_light">#fcfaf4</color>
+    <color name="background_dark">#021810</color>
+    <color name="text_primary_light">#1c1917</color>
+    <color name="text_primary_dark">#f1f5f9</color>
+    <color name="splash_bg">#021810</color>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">इस्लाम दर्शन</string>
+    <string name="app_name_en">Islam Darshan</string>
+    <string name="exit_prompt">बाहिरिन फेरि एकपटक पछाडि थिच्नुहोस्</string>
+    <string name="loading">लोड हुँदैछ…</string>
+    <string name="offline_title">इन्टरनेट सम्पर्क विच्छेद</string>
+    <string name="offline_message">कृपया आफ्नो इन्टरनेट जडान जाँच गर्नुहोस् वा अफलाइन सामग्रीहरू पढ्नुहोस्।</string>
+    <string name="retry">पुनः प्रयास गर्नुहोस्</string>
+</resources>

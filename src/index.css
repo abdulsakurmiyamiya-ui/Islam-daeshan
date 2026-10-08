@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-arabic: 'Amiri', serif;
+    --font-heading: 'Yatra One', 'Cinzel', serif;
+    --font-book: 'Noto Serif Devanagari', 'Martel', serif;
+  }
+}
+
+.font-arabic {
+  font-family: var(--font-arabic);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-book {
+  font-family: var(--font-book);
+}
+
+/* Islamic Geometric Border Ornament */
+.islamic-border-gold {
+  border-image: linear-gradient(to bottom, #f59e0b, #d97706, #78350f, #d97706, #f59e0b) 1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(4, 32, 23, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d97706;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+/* Parchment texture subtle styling */
+.bg-cream-parchment {
+  background-color: #fcf9f2;
+}
+
+.bg-cream-parchment-dark {
+  background-color: #121f1a;
+}
+

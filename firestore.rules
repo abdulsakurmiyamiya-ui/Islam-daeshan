@@ -1,0 +1,109 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net (Pillar 1)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common Helpers
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() {
+      return request.resource.data;
+    }
+    function existing() {
+      return resource.data;
+    }
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'abdulsakurmiyamiya@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // 1. Chapters Collection
+    // Public read for published chapters, admin can read drafts & write
+    match /chapters/{chapterId} {
+      allow get, list: if isValidId(chapterId) && (
+        resource.data.status == 'published' || isAdmin()
+      );
+      allow create, update, delete: if isValidId(chapterId) && isAdmin();
+    }
+
+    // 2. Chapter Series
+    match /chapter_series/{seriesId} {
+      allow get, list: if isValidId(seriesId);
+      allow create, update, delete: if isValidId(seriesId) && isAdmin();
+    }
+
+    // 3. Questions Collection (Readers can submit, Admin views and answers)
+    match /questions/{questionId} {
+      allow create: if isValidId(questionId) &&
+        incoming().questionText is string && incoming().questionText.size() <= 2000 &&
+        incoming().isAnonymous is bool &&
+        incoming().status == 'pending';
+      allow get, list: if isValidId(questionId) && isAdmin();
+      allow update, delete: if isValidId(questionId) && isAdmin();
+    }
+
+    // 4. Comments Collection
+    match /comments/{commentId} {
+      allow get, list: if isValidId(commentId);
+      allow create: if isValidId(commentId) &&
+        incoming().commentText is string && incoming().commentText.size() <= 1500 &&
+        incoming().likesCount == 0 &&
+        incoming().reportsCount == 0;
+      allow update: if isValidId(commentId) && (
+        isAdmin() ||
+        // Allowing like or report increment
+        incoming().diff(existing()).affectedKeys().hasOnly(['likesCount']) ||
+        incoming().diff(existing()).affectedKeys().hasOnly(['reportsCount'])
+      );
+      allow delete: if isValidId(commentId) && isAdmin();
+    }
+
+    // 5. Bookmarks Collection (Owner-restricted)
+    match /bookmarks/{bookmarkId} {
+      allow get, list: if isValidId(bookmarkId) && (
+        isSignedIn() && resource.data.userId == request.auth.uid
+      );
+      allow create: if isValidId(bookmarkId) &&
+        isSignedIn() && incoming().userId == request.auth.uid;
+      allow update, delete: if isValidId(bookmarkId) &&
+        isSignedIn() && existing().userId == request.auth.uid;
+    }
+
+    // 6. Reading Progress Collection (Owner-restricted)
+    match /reading_progress/{progressId} {
+      allow get, list: if isValidId(progressId) && (
+        isSignedIn() && resource.data.userId == request.auth.uid
+      );
+      allow create, update: if isValidId(progressId) &&
+        isSignedIn() && incoming().userId == request.auth.uid;
+      allow delete: if isValidId(progressId) &&
+        isSignedIn() && existing().userId == request.auth.uid;
+    }
+
+    // 7. Favorites Collection (Owner-restricted)
+    match /favorites/{favId} {
+      allow get, list: if isValidId(favId) && (
+        isSignedIn() && resource.data.userId == request.auth.uid
+      );
+      allow create: if isValidId(favId) &&
+        isSignedIn() && incoming().userId == request.auth.uid;
+      allow delete: if isValidId(favId) &&
+        isSignedIn() && existing().userId == request.auth.uid;
+    }
+
+    // 8. Notifications
+    match /notifications/{notificationId} {
+      allow get, list: if isValidId(notificationId);
+      allow create, update, delete: if isValidId(notificationId) && isAdmin();
+    }
+  }
+}

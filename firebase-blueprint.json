@@ -1,0 +1,214 @@
+{
+  "entities": {
+    "Chapter": {
+      "title": "Chapter",
+      "description": "An educational chapter of Islam Darshan book",
+      "type": "object",
+      "properties": {
+        "chapterNumber": {
+          "type": "number",
+          "description": "Sequential chapter number"
+        },
+        "title": {
+          "type": "string",
+          "description": "Chapter title in Nepali",
+          "maxLength": 200
+        },
+        "arabicTitle": {
+          "type": "string",
+          "description": "Arabic calligraphy or subtitle",
+          "maxLength": 200
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Engaging subtitle",
+          "maxLength": 300
+        },
+        "series": {
+          "type": "string",
+          "description": "Series category",
+          "maxLength": 100
+        },
+        "readTimeMinutes": {
+          "type": "number",
+          "description": "Estimated reading duration in minutes"
+        },
+        "content": {
+          "type": "string",
+          "description": "Full formatted chapter text and narrative"
+        },
+        "ayahReferences": {
+          "type": "string",
+          "description": "Serialized Quranic ayah citations and translations"
+        },
+        "hadithReferences": {
+          "type": "string",
+          "description": "Serialized Sahih Hadith citations and sources"
+        },
+        "reflection": {
+          "type": "string",
+          "description": "Concluding philosophical reflection and thinking points"
+        },
+        "nextChapterTeaser": {
+          "type": "string",
+          "description": "Curiosity-inducing hook for the next chapter"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "published"],
+          "description": "Publishing status"
+        },
+        "coverUrl": {
+          "type": "string",
+          "description": "Cover artwork URL",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["chapterNumber", "title", "content", "status"]
+    },
+    "ChapterSeries": {
+      "title": "ChapterSeries",
+      "description": "Thematic group of chapters",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "order": { "type": "number" }
+      },
+      "required": ["name", "order"]
+    },
+    "Question": {
+      "title": "Question",
+      "description": "User question or inquiry submitted at chapter end or via Q&A",
+      "type": "object",
+      "properties": {
+        "chapterId": { "type": "string", "maxLength": 100 },
+        "chapterTitle": { "type": "string", "maxLength": 200 },
+        "questionText": { "type": "string", "maxLength": 2000 },
+        "isAnonymous": { "type": "boolean" },
+        "senderName": { "type": "string", "maxLength": 100 },
+        "senderEmail": { "type": "string", "maxLength": 150 },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "answered", "archived"]
+        },
+        "answerText": { "type": "string", "maxLength": 4000 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["questionText", "isAnonymous", "status", "createdAt"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "Reader review or constructive commentary on a chapter",
+      "type": "object",
+      "properties": {
+        "chapterId": { "type": "string", "maxLength": 100 },
+        "authorName": { "type": "string", "maxLength": 100 },
+        "authorId": { "type": "string", "maxLength": 128 },
+        "commentText": { "type": "string", "maxLength": 1500 },
+        "parentId": { "type": "string", "maxLength": 100 },
+        "likesCount": { "type": "number" },
+        "reportsCount": { "type": "number" },
+        "isApproved": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["chapterId", "authorName", "commentText", "likesCount", "createdAt"]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "User saved bookmark location",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "chapterId": { "type": "string", "maxLength": 100 },
+        "chapterNumber": { "type": "number" },
+        "chapterTitle": { "type": "string", "maxLength": 200 },
+        "scrollPercentage": { "type": "number" },
+        "note": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "chapterId", "chapterNumber", "chapterTitle", "createdAt"]
+    },
+    "ReadingProgress": {
+      "title": "ReadingProgress",
+      "description": "User progress per chapter",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "chapterId": { "type": "string", "maxLength": 100 },
+        "progressPercent": { "type": "number" },
+        "completed": { "type": "boolean" },
+        "lastReadAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "chapterId", "progressPercent", "completed", "lastReadAt"]
+    },
+    "Favorite": {
+      "title": "Favorite",
+      "description": "Marked favorite chapter",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "chapterId": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "chapterId", "createdAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "Broadcast notification when new chapter or answer is published",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 200 },
+        "message": { "type": "string", "maxLength": 1000 },
+        "chapterId": { "type": "string", "maxLength": 100 },
+        "type": { "type": "string", "enum": ["new_chapter", "announcement", "daily_thought"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "message", "type", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/chapters/{chapterId}": {
+      "schema": "Chapter",
+      "description": "Chapters collection of Islam Darshan"
+    },
+    "/chapter_series/{seriesId}": {
+      "schema": "ChapterSeries",
+      "description": "Thematic series groupings"
+    },
+    "/questions/{questionId}": {
+      "schema": "Question",
+      "description": "Reader questions and inquiries submitted to the scholars/admin"
+    },
+    "/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments and replies on chapters"
+    },
+    "/bookmarks/{bookmarkId}": {
+      "schema": "Bookmark",
+      "description": "User bookmarks"
+    },
+    "/reading_progress/{progressId}": {
+      "schema": "ReadingProgress",
+      "description": "User reading history and progress"
+    },
+    "/favorites/{favId}": {
+      "schema": "Favorite",
+      "description": "User favorite chapters"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "System and new chapter notifications"
+    }
+  }
+}
